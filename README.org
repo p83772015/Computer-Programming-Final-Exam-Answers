@@ -1,5 +1,6 @@
 #+PROPERTY: header-args :exports both
 #+OPTIONS: num:4
+#+HTML_HEAD: <style>.section-number-3 {font-size: 1.125rem;}</style>
 #+TITLE: Computer Programming Final Exam Answers
 
 *** Suppose you want to store a set of temperature measurements that is taken every five minutes. Should you use a vector or an array?
