@@ -1,0 +1,358 @@
+#+TITLE: Computer Programming Final Exam Answers
+
+* Suppose you want to store a set of temperature measurements that is taken every five minutes. Should you use a vector or an array?
+
+Vector.
+
+* Suppose you want to store the names of the weekdays. Should you use a vector or an array of seven strings?
+
+You should use an array of seven strings. Since the number of weekdays
+is fixed (seven).
+
+* Suppose you want to store the names of the weekdays. Should you use a vector or an array of seven strings?
+
+You should use an array of seven strings. Since the number of weekdays
+is fixed (seven).
+
+* Define a two-dimensional array for representing a tic-tac-toe board. The board has three rows and columns and contains strings "x", "o", and " ". 
+
+#+NAME: tic-tac-toe
+#+begin_src C++ 
+  string ttt_board[3][3] = {
+    {"x", "x", " "},  // Row 0
+    {"o", "o", "x"},  // Row 1
+    {"x", "o", " "}   // Row 2
+  };
+#+end_src
+
+- [X] Represents a tic-tac-toe board.
+- [X] Three rows and columns
+- [X] Contains strings ~"x"~ , ~"o"~ , ~" ".~
+
+* Write an assignment statement to place an "x" in the upper-right corner of the tic-tac-toe board.
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output :noweb yes
+  ttt_board[0][2] = "x";
+#+end_src
+
+** Example
+#+begin_src C++ :includes <iostream> :namespaces std :results output :noweb yes
+  <<tic-tac-toe>>
+  ttt_board[0][2] = "x";
+  for (int i = 0; i < 3; ++i) {
+    for (int j = 0; j < 3; ++j) {
+      cout << ttt_board[i][j] << ' ';
+    }
+    cout << '\n';
+   }
+#+end_src
+
+#+RESULTS:
+: x x x 
+: o o x 
+: x o   
+
+* How can you print all positive values in an array, separated by commas?  *
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a[6] = {6, 2, -8, 0, -3, 10};
+  int a_size = 6;
+
+  for (int i = 0; i < a_size; ++i) {
+    if (a[i] > 0) {
+      if (i == a_size - 1) {
+        cout << a[i];
+      } else {
+        cout << a[i] << ", ";
+      }
+    }
+  }
+#+end_src
+
+#+RESULTS:
+: 6, 2, 10
+
+* Write a function that returns the first position of an element in an array, or –1 if the element is not present. Use the linear search algorithm.  *
+
+#+NAME: find-position
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int find_position(int arr[], int arr_size, int value) {
+    for (int i = 0; i < arr_size; ++i) {
+      if (arr[i] == value) {
+        return i;
+      }
+    }
+    return -1;
+  }
+#+end_src
+
+** Example
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output :noweb yes
+  <<find-position>>
+
+  int main() {
+    int a[6] = {6, 2, -8, 0, -3, 10};
+    cout << find_position(a, 6, -8) << '\n';
+    cout << find_position(a, 6, 10) << '\n';
+    cout << find_position(a, 6, 2) << '\n';
+    return 0;
+  }
+#+end_src
+
+#+RESULTS:
+: 2
+: 5
+: 1
+
+* Consider this set of statements. What is printed? (2pts)
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a = 1;
+  int b = 2;
+  int* p = &a;
+
+  cout << *p << endl;
+  p = &b;
+  cout << *p << endl;
+#+end_src
+
+#+RESULTS:
+: 1
+: 2
+
+* Consider this set of statements. What is printed? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a = 1;
+  int b = 2;
+  int* p = &a;
+  int* q = &b;
+
+  ,*p = *q;
+  cout << a << " " << b << endl;
+#+end_src
+
+#+RESULTS:
+: 2 2
+
+* Consider this set of statements. What is printed? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a = 15;
+  int* p = &a;
+  int* q = &a;
+
+  cout << *p + *q << endl;
+#+end_src
+
+#+RESULTS:
+: 30
+
+* Consider this set of statements. What is printed? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a = 15;
+  int* p = &a;
+  int* q = &a;
+
+  ,*p = *p + 10;
+  cout << *q << endl;
+#+end_src
+
+#+RESULTS:
+: 25
+
+* Consider this set of statements. What is printed? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a = 15;
+  int* p = &a;
+
+  cout << *p << " " << p << endl;
+#+end_src
+
+#+RESULTS:
+: 15 0x7ffce1741ee4
+
+* What is the contents of the array a after these statements? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a[] = { 2, 3, 5 };
+
+  int* p = a;
+  p++;
+  ,*p = 0;
+#+end_src
+
+* What is the contents of the array a after these statements? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a[ ] = { 2, 3, 5 };
+
+  int* p = a + 1;
+  ,*(p + 1) = 0;
+
+  // Print array
+  for (int i = 0; i < 3; ++i) {
+    cout << a[i] << ((i < 3 - 1) ? ", " : "");
+  }
+#+end_src
+
+#+RESULTS:
+: 2, 3, 0
+
+* What is the contents of the array a after these statements? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a[] = { 2, 3, 5 };
+  int* p = a;
+  int* q = a + 2;
+
+  p++;
+  q--;
+  ,*p = *q;
+
+  // Print array
+  for (int i = 0; i < 3; ++i) {
+    cout << a[i] << ((i < 3 - 1) ? ", " : "");
+  }
+#+end_src
+
+#+RESULTS:
+: 2, 3, 5
+
+* What do the following statements print? 
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  int a[ ] = { 2, 3, 5 };
+
+  cout << *a + 2 << " ";
+  cout << *(a + 2) << endl;
+#+end_src
+
+#+RESULTS:
+: 4 5
+
+
+* What is strlen("Hello, World!\n")? 
+
+#+begin_src C++ :includes iostream cstring :namespaces std :results output
+  cout << strlen("Hello, World!\n");
+#+end_src
+
+#+RESULTS:
+: 14
+
+* In C++, is cin an object or a class? Is string an object or a class? 
+
+~cin~ is an object while ~string~ is a class.
+
+* Consider a class Time that represents a point in time, such as 9 A.M. or 3:30 P.M. Give two different sets of data members that can be used for implementing the Time class. 
+** Set 1: 12-hour clock with am or pm indicator
+#+begin_src C++ :includes iostream cstring :namespaces std :results output
+  class Time {
+  private:
+    int hour;
+    int minute;
+    bool is_am;
+  };
+#+end_src
+** Set 2: 24-hour clock
+#+begin_src C++ :includes iostream cstring :namespaces std :results output
+  class Time {
+  private:
+    int hour;
+    int minute;
+  };
+#+end_src
+* Consider a class Grade that represents a letter grade, such as A+ or B. Give two different sets of data members that can be used for implementing the Grade class.
+** Set 1: Break down the letter and plus
+#+begin_src C++ :includes iostream cstring :namespaces std :results output
+  class Grade {
+  private:
+    char letter;
+    bool is_plus;
+  };
+#+end_src
+** Set 2: Represent as a whole string
+#+begin_src C++ :includes iostream cstring :namespaces std :results output
+  class Grade {
+  private:
+    string letter_grade;
+  };
+#+end_src
+* Consider the ~substr~ member function of the string class. How many parameters does it have, and what are their types? 
+
+The ~substr~ member function is defined as having two parameters of type
+~size_t~, the first parameter indicating the index from which to start
+the slicing and the second parameter indicating the length to which to
+end the slice.
+
+* Explain what public: and private: mean in a class definition. 
+
+The private section of a class makes the attributes and methods
+declared within it be visible *only* by functions defined within the
+class.  On the other hand, the public section of a class makes the
+attributes and methods be visible to *any* other function defined
+outside the class.
+
+* When you define a C++ class, should you make the member variables public or private? Should you make the member functions public or private? 
+
+When you define a C++ class, member variables should be made private
+while Member functions should be made public.
+
+* Every class definition contains the keyword _______ followed immediately by the class’s name. 
+
+#+begin_src C++ :includes iostream cstring :namespaces std :results output
+  class
+#+end_src
+
+* Each parameter in a function header specifies both  ____________and  _____________ 
+
+A type and a parameter name.
+
+* Suppose your program contains the following class definition,
+
+#+NAME: automobile-obj
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  class Automobile
+  {
+  public:
+    void setPrice( double newPrice);
+    void setProfit( double newProfit);
+    double getPrice( );
+  private:
+    double price;
+    double profit;
+    double getProfit( );
+  };
+#+end_src
+
+and suppose the main function of your program contains the following
+declaration and that the program somehow sets the values of all the
+member variables to some values:
+
+#+NAME: automobile-creation
+#+begin_src C++ :includes <iostream> :namespaces std :results output
+  Automobile hyundai, jaguar;
+#+end_src
+
+Which of the following statements are then allowed in the main function of your program? (10pts)
+
+#+begin_src C++ :includes <iostream> :namespaces std :results output :noweb yes :tangle automobile.cpp
+  <<automobile-obj>>
+  <<automobile-creation>>
+
+  int main() {
+    hyundai.price = 4999.99; // Not allowed; 'price' is declared private.
+    jaguar.setPrice(30000.97);	// Allowed
+    double aPrice, aProfit;
+    aPrice = jaguar.getPrice( );	// Allowed
+    aProfit = jaguar.getProfit( ); // Not allowed; 'getProfit is declared private.
+    aProfit = hyundai.getProfit( ); // Not allowed; 'getProfit is declared private.
+    hyundai = jaguar;		  // Allowed
+  //
+   }
+#+end_src
+
