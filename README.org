@@ -183,9 +183,18 @@ is fixed (seven).
   int a[] = { 2, 3, 5 };
 
   int* p = a;
+
   p++;
   ,*p = 0;
+
+  // Print array
+  for (int i = 0; i < 3; ++i) {
+    cout << a[i] << ((i < 3 - 1) ? ", " : "");
+   }
 #+end_src
+
+#+RESULTS:
+: 2, 0, 5
 
 **** What is the contents of the array a after these statements? 
 
@@ -349,7 +358,7 @@ Which of the following statements are then allowed in the main function of your 
   int main() {
     hyundai.price = 4999.99; // Not allowed; 'price' is declared private.
     jaguar.setPrice(30000.97);	// Allowed
-    double aPrice, aProfit;
+    double aPrice, aProfit;	// Allowed
     aPrice = jaguar.getPrice( );	// Allowed
     aProfit = jaguar.getProfit( ); // Not allowed; 'getProfit is declared private.
     aProfit = hyundai.getProfit( ); // Not allowed; 'getProfit is declared private.
