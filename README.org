@@ -1,4 +1,5 @@
 #+PROPERTY: header-args :exports both
+#+OPTIONS: toc:2
 #+TITLE: Computer Programming Final Exam Answers
 
 *** Suppose you want to store a set of temperature measurements that is taken every five minutes. Should you use a vector or an array?
